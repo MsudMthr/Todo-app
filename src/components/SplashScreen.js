@@ -20,6 +20,7 @@ const SplashScreen = () => {
           triskapet. Brexit suprahibelt. Angen exodat lad, rerinde, den ryniren.
           Kombucha tide.{" "}
         </p>
+        
         <button  className="bg-[#38c24e] text-white w-[325px] h-[60px] mt-12 rounded-lg font-semibold text-lg " >  
           Get Started
         </button>
