@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .authButton {
+    @apply h-[60px] w-[325px] rounded-lg bg-[#38c24e] text-lg font-semibold text-white;
+  }
+
+  .authInput {
+    @apply h-[50px] w-[350px] rounded-[100px] py-4 pl-8 outline-none focus:placeholder:translate-x-3 focus:placeholder:transition-all;
+  }
+  
+}

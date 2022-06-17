@@ -5,23 +5,23 @@ import Circle from "../shared/Circle";
 import splashScreenImage from "../assets/images/SplashScreen.png";
 
 const SplashScreen = () => {
-
+  const navigate = useNavigate();
 
   return (
     <div>
       <Circle />
-      <div className="flex flex-col items-center justify-center mt-32 md:mt-20">
+      <div className="mt-32 mb-4 flex flex-col items-center justify-center md:mt-20">
         <img src={splashScreenImage} alt="splash" className="md:w-64" />
-        <h2 className="mt-9 text-lg text-black/90 md:text-xl font-semibold">
+        <h2 className="mt-9 text-lg font-semibold text-black/90 md:text-xl">
           Getting things done with TODO{" "}
         </h2>
-        <p className="w-60 text-center text-xs md:text-sm text-black/80 mt-7">
+        <p className="mt-7 w-60 text-center text-xs text-black/80 md:text-sm">
           Lörem ipsum ona telel och arat falogi krojaligt. Tejurat ick av
           triskapet. Brexit suprahibelt. Angen exodat lad, rerinde, den ryniren.
           Kombucha tide.{" "}
         </p>
-        
-        <button  className="bg-[#38c24e] text-white w-[325px] h-[60px] mt-12 rounded-lg font-semibold text-lg " >  
+
+        <button onClick={() => navigate('/signIn')} className="authButton mt-12">
           Get Started
         </button>
       </div>
