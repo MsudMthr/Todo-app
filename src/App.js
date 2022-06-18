@@ -10,7 +10,7 @@ function App() {
   return (
     <Provider store={store}>
       <div className="bg-[#E5E5E5]">
-        <div className="container relative min-h-screen overflow-hidden bg-[#E5E5E5]">
+        <div className="max-w-screen-2xl mx-auto relative min-h-screen overflow-hidden bg-[#E5E5E5]">
           <Routes>
             <Route path="/" element={<SplashScreen />} />
             <Route path="signIn" element={<Registration />} />

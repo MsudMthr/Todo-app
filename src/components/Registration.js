@@ -1,34 +1,33 @@
 import React, { useState } from "react";
+//react router dom
 import { useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
-import { useSelector, useDispatch } from "react-redux";
-import { auth } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import Circle from "../shared/Circle";
+//redux
 import {
   subscribeSuccess,
   subscribeFailure,
 } from "../redux/subscribe/subscribeAction";
 
+import { useDispatch } from "react-redux";
+//formik
+import { useFormik } from "formik";
+//firebase
+import { auth } from "../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import Circle from "../shared/Circle";
+
 const Registration = () => {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.userState);
   const dispatch = useDispatch();
   const [isError, setIsError] = useState(false);
 
   const formik = useFormik({
     initialValues: {
-      name: "",
       email: "",
       password: "",
       confirmPassword: "",
     },
     onSubmit: async (values) => {
-      if (
-        values.email &&
-        values.password === values.confirmPassword &&
-        values.name
-      ) {
+      if (values.email && values.password === values.confirmPassword) {
         createUserWithEmailAndPassword(auth, values.email, values.password)
           .then((user) => {
             dispatch(subscribeSuccess(user));
@@ -60,16 +59,6 @@ const Registration = () => {
           className="mt-14 flex flex-col items-center md:mt-6"
         >
           <input
-            id="text"
-            className="authInput"
-            placeholder="enter your full name"
-            name="name"
-            type="name"
-            onChange={formik.handleChange}
-            value={formik.values.name}
-          />
-
-          <input
             id="email"
             className="authInput  mt-5"
             placeholder="enter your input"
@@ -100,7 +89,7 @@ const Registration = () => {
           <p className="mt-5 cursor-pointer text-[#38C24E]">Forgot password</p>
 
           <button type="submit" className="authButton mt-4">
-            Login
+            Register
           </button>
         </form>
         {isError && (

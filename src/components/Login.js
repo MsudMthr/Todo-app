@@ -1,12 +1,23 @@
 import React, { useState } from "react";
+//formik
 import { useFormik } from "formik";
-
+//react router dom
+import { useDispatch } from "react-redux/es/exports";
 import { useNavigate } from "react-router-dom";
+//redux
+import {
+  subscribeSuccess,
+  subscribeFailure,
+} from "./../redux/subscribe/subscribeAction";
+//firebase
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
 import Circle from "../shared/Circle";
 import loginImage from "../assets/images/Login.png";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [isError, setIsError] = useState(false);
   const formik = useFormik({
     initialValues: {
@@ -15,7 +26,12 @@ const Login = () => {
     },
     onSubmit: (values) => {
       if (values.email && values.password) {
-        
+        signInWithEmailAndPassword(auth, values.email, values.password)
+          .then((user) => {
+            dispatch(subscribeSuccess(user));
+            navigate("/dashboard", { replace: true });
+          })
+          .catch((error) => dispatch(subscribeFailure(error.message)));
         setIsError(false);
       } else {
         setIsError(true);
