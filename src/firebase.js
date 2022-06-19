@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, updateProfile } from "firebase/auth";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 const config = {
   apiKey: "AIzaSyAo8rM5alKUJBID__UYbhrHevesAfyNG4Q",
@@ -11,4 +12,18 @@ const config = {
 };
 
 const app = initializeApp(config);
+const storage = getStorage();
 export const auth = getAuth(app);
+
+export const upload = async (file, currentUser, setLoading) => {
+  const fileRef = ref(storage, currentUser.uid + ".png");
+
+  setLoading(true);
+
+  const snapshot = await uploadBytes(fileRef, file);
+  const photoURL = await getDownloadURL(fileRef);
+
+  updateProfile(auth.currentUser, { photoURL });
+
+  setLoading(false);
+};

@@ -9,15 +9,15 @@ export const subscribeReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SUBSCRIBE_SUCCESS":
       return {
+        ...state,
         user: action.payload,
         isLoading: false,
         isLoggedIn: true,
-        ...state,
       };
     case "SUBSCRIBE_FAILURE":
       return {
-        isLoading: false,
         ...state,
+        isLoading: false,
         error: action.payload,
       };
     default:

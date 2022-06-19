@@ -1,25 +1,43 @@
-import { Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+
+import { Route, Routes, useNavigate } from "react-router-dom";
+//firebase
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
+
+//redux
+import { useDispatch } from "react-redux/es/exports";
+import { subscribeSuccess } from "./redux/subscribe/subscribeAction";
+//components
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Registration from "./components/Registration";
 import SplashScreen from "./components/SplashScreen";
-import { Provider } from "react-redux";
-import store from "./redux/store";
 
 function App() {
+  // const user = auth.currentUser;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  useEffect(() => {
+    //
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(subscribeSuccess(user));
+        navigate("/dashboard", { replace: true });
+      }
+    });
+  }, []);
   return (
-    <Provider store={store}>
-      <div className="bg-[#E5E5E5]">
-        <div className="max-w-screen-2xl mx-auto relative min-h-screen overflow-hidden bg-[#E5E5E5]">
-          <Routes>
-            <Route path="/" element={<SplashScreen />} />
-            <Route path="signIn" element={<Registration />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Routes>
-        </div>
+    <div className="bg-[#E5E5E5]">
+      <div className="relative mx-auto min-h-screen max-w-screen-2xl overflow-hidden bg-[#E5E5E5]">
+        <Routes>
+          <Route path="/" element={<SplashScreen />} />
+          <Route path="signIn" element={<Registration />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
       </div>
-    </Provider>
+    </div>
   );
 }
 

@@ -1,12 +1,20 @@
 import { useNavigate } from "react-router-dom";
-
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase";
 import Circle from "../shared/Circle";
 
 import splashScreenImage from "../assets/images/SplashScreen.png";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import {
+  subscribeSuccess,
+  subscribeFailure,
+} from "./../redux/subscribe/subscribeAction";
 
 const SplashScreen = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+ 
   return (
     <div>
       <Circle />
@@ -21,7 +29,10 @@ const SplashScreen = () => {
           Kombucha tide.{" "}
         </p>
 
-        <button onClick={() => navigate('/signIn')} className="authButton mt-12">
+        <button
+          onClick={() => navigate("/signIn")}
+          className="authButton mt-12"
+        >
           Get Started
         </button>
       </div>
