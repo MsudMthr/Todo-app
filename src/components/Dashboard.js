@@ -6,13 +6,16 @@ import { updateProfile } from "firebase/auth";
 import Time from "../shared/Clock";
 import Circle from "./../shared/Circle";
 import Todos from "./Todos";
-import UserProfileImage from './UserProfileImage';
+import UserProfileImage from "./UserProfileImage";
+import Logout from "./Logout";
+import WriteTodo from "./WriteTodo";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [timeWishGood, setTimeWishGood] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [isShowNameInput, setIsShowNameInput] = useState(false);
+
   const user = useSelector((state) => state.userState);
   const hour = new Date().getHours();
   useEffect(() => {
@@ -29,8 +32,7 @@ const Dashboard = () => {
     }
   }, [hour]);
 
-
-
+  
   const nameHandler = async () => {
     await updateProfile(user.user, {
       displayName,
@@ -45,10 +47,12 @@ const Dashboard = () => {
   console.log(user.user.displayName);
 
   return (
-    <div>
-      <div className="flex h-[307px] w-full flex-col items-center justify-center bg-[#38C24E]">
+    <div className="">
+      <div className="flex h-[307px]  w-full flex-col items-center justify-center bg-[#38C24E]">
+        <Logout />
         <Circle />
-       <UserProfileImage user={user.user}/>
+
+        <UserProfileImage user={user.user} />
         <div className="flex flex-col items-center">
           <p className="mt-5 flex  items-center text-lg font-semibold text-white">
             <p>

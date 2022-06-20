@@ -4,7 +4,7 @@ import { upload } from "../firebase";
 import avatar from "../assets/SVG/avatar.svg";
 
 const UserProfileImage = ({ user }) => {
-  const [profileImage, setProfileImage] = useState(avatar);
+  const [profileImage, setProfileImage] = useState();
   const [photo, setPhoto] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isShowElement, setIsShoeElement] = useState({
@@ -12,23 +12,25 @@ const UserProfileImage = ({ user }) => {
     uploadButton: false,
   });
   useEffect(() => {
-    if (user?.photoURL) setProfileImage(user.photoURL);
+    if (user?.photoURL) {
+      setProfileImage(user.photoURL);
+    } else {
+      setProfileImage(avatar);
+    }
     setIsShoeElement({ fileInput: true });
-  }, []);
-
+  }, [user]);
   const changeHandler = (e) => {
-    if (e.target.files[0]) photo(e.target.files[0]);
+    if (e.target.files[0]) setPhoto(e.target.files[0]);
     setIsShoeElement({ fileInput: false, uploadButton: true });
   };
   const uploadPhotoHandler = () => {
     upload(photo, user, setLoading);
-    console.log("done");
     setIsShoeElement({ uploadButton: false });
   };
 
   return (
     <div className="relative ">
-      <img src={profileImage} alt="" className="w-28 rounded-full shadow-2xl" />
+      <img src={profileImage} alt="" className="w-28 rounded-full shadow-2xl p-1 " />
       {isShowElement.uploadButton && (
         <button
           onClick={uploadPhotoHandler}

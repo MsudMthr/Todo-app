@@ -14,7 +14,7 @@ export default function Time() {
   }, []);
 
   return (
-    <div className='rounded-full bg-[#D2E3D5] w-[120px] '>
+    <div className='rounded-full bg-[#D2E3D5] w-[120px] shadow-xl'>
       <Clock value={time}  hourHandLength={29} secondHandLength={43} minuteHandLength={36} renderNumbers={false} size={120} />
     </div>
   );

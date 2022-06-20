@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sedgwick+Ave&family=Signika+Negative:wght@300;400;500;600;700&display=swap");
+
+html {
+  font-family: "Poppins", sans-serif;
+}
+
 @layer components {
   .authButton {
     @apply h-[60px] w-[325px] rounded-lg bg-[#38c24e] text-lg font-semibold text-white;
@@ -10,9 +16,8 @@
   .authInput {
     @apply h-[50px] w-[350px] rounded-[100px] py-4 pl-8 outline-none focus:placeholder:translate-x-3 focus:placeholder:transition-all;
   }
-  
 }
 
 .transition {
-  transition: .5s all ease-in-out;
+  transition: 0.5s all ease-in-out;
 }
